@@ -52,7 +52,7 @@ const App=()=>{
 
       <NotesList 
     
-        notes={notes.filter((note)=> note.text.toLowerCase().includes(searchText))} 
+        notes={notes.filter((note)=> note.text.toUpperCase().includes(searchText))} 
         handleAddNote={addNote} 
         handleDeleteNote={deleteNote}
         />
