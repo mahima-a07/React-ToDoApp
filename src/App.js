@@ -59,7 +59,7 @@ const App=()=>{
 
       
       </div>
-      <Footer />
+      <Footer darkMode={darkMode} />
     </div>
   
     
