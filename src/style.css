@@ -152,3 +152,33 @@ textarea::placeholder{
 .search input:focus{
     outline:none;
 }
+
+.footer {
+    
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    height: 100%;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.footer p{
+    
+    font-size: 0.98rem;
+}
+
+.footer p a {
+    text-decoration: none;
+    color:black;
+
+    
+}
+
+
+.footer p a:hover{
+    cursor: pointer;
+    color: #FF6B6B;
+}

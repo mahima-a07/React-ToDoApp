@@ -3,6 +3,7 @@ import {nanoid} from 'nanoid';
 import NotesList from "./components/NotesList";
 import Search from "./components/search";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import './style.css';
 
 const App=()=>{
@@ -55,7 +56,10 @@ const App=()=>{
         handleAddNote={addNote} 
         handleDeleteNote={deleteNote}
         />
+
+      
       </div>
+      <Footer />
     </div>
   
     
