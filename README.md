@@ -41,7 +41,7 @@
 
 - Have developed this project to showcase my practical skills in React Js. This project helped to learn one of the react hooks concept called useState in more deeper. Here in this project I have created Notes which is fuly resposive and something cool about this web application is I have created  a dark mode for it. 
 
-- Thanks to Chris,chatGPT and w3schools for helpinh through out this project.
+- Thanks to Chris,chatGPT and w3schools for helping through out this project.
 
 - Since I am new to react if anyone finds any mistakes or can make this project better please fork this and teach me about some more cool stuffs in react js.
 
