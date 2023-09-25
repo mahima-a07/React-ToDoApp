@@ -24,7 +24,7 @@
 
 ## Overview
 
-![screenshot](https://github.com/batrick-swaistan/calculator-react/blob/main/public/notes_app.png)
+![screenshot](https://github.com/batrick-swaistan/Notes_App/blob/main/public/notes_app.png)
 
 - You can see my Notes web app by clicking on the Demo. I've hosted my project on vercel.
 - It's a guided project for deeper understanding of react hooks.
