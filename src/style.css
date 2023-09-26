@@ -51,16 +51,19 @@
     border: none;
     border-radius: 15px;
     padding: 5px 10px 5px 10px;
+    outline: none;
 }
 
 .dark.clicked{
     background-color: white;
     color: black;
+    outline: none;
 }
 
 .dark-mode{
     background-color: black;
     height: 100vh;
+
 }
 .dark-mode h1{
     color: white;
@@ -118,6 +121,7 @@ textarea::placeholder{
     border: none;
     border-radius: 15px;
     padding: 5px 10px 5px 10px;
+    outline: none;
 }
 
 .save:hover{

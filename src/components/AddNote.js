@@ -40,7 +40,7 @@ const AddNote= ( {handleAddNote }) =>{
 
         <div className="note-footer">
             <small>{characterLimit-noteText.length} Remaining</small>
-            <button className='save dark' onClick={handleSaveClick}>Save</button>
+            <button className='save dark' onClick={handleSaveClick} >Save</button>
         </div>
     </div>);
 };
