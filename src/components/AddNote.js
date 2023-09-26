@@ -1,7 +1,19 @@
-import {useState} from 'react';
+import React,{useState,useRef} from 'react';
 
 const AddNote= ( {handleAddNote }) =>{
     const [noteText,setNoteText]=useState('');
+    const [buttonClicked,setbuttonClicked]=useState(0);
+    const buttonRef=useRef(null);
+
+    
+
+    const handleKeyDown=(e)=>{
+        if(e.keyCode ===13){
+            
+            e.preventDefault();
+            buttonRef.current.click();
+        }
+    };
 
     const characterLimit=200;
 
@@ -16,9 +28,12 @@ const AddNote= ( {handleAddNote }) =>{
 
     const handleSaveClick= () => {
 
+       
+
         if(noteText.trim().length> 0){
             handleAddNote(noteText);
             setNoteText('');
+            setbuttonClicked(buttonClicked+1);
 
         }
 
@@ -34,13 +49,14 @@ const AddNote= ( {handleAddNote }) =>{
         placeholder='Type to add a note...'
         value={noteText}
         onChange={handlechange}
+        onKeyDown={handleKeyDown}
         >
 
         </textarea>
 
         <div className="note-footer">
             <small>{characterLimit-noteText.length} Remaining</small>
-            <button className='save dark' onClick={handleSaveClick} >Save</button>
+            <button className='save dark' onClick={handleSaveClick} ref={buttonRef}>Save</button>
         </div>
     </div>);
 };
