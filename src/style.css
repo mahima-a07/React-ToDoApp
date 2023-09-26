@@ -126,11 +126,8 @@ textarea::placeholder{
     outline: none;
 }
 
-.save:hover{
-    background-color: var(--bg-color);
-    color: var(--container-color);
-    cursor: pointer;
-}
+
+
 
 .note-footer{
 
@@ -198,3 +195,11 @@ textarea::placeholder{
     cursor: pointer;
     color: #FF6B6B;
 } */
+
+@media (hover: hover) {
+    .save:hover {
+        background-color: var(--bg-color);
+        color: var(--container-color);
+        cursor: pointer;
+    }
+}

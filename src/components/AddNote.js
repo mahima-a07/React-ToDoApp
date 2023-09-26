@@ -2,18 +2,18 @@ import React,{useState,useRef} from 'react';
 
 const AddNote= ( {handleAddNote }) =>{
     const [noteText,setNoteText]=useState('');
-    const [buttonClicked,setbuttonClicked]=useState(0);
+    // const [buttonClicked,setbuttonClicked]=useState(0);
     const buttonRef=useRef(null);
 
     
 
     const handleKeyDown=(e)=>{
-        if(e.keyCode ===13){
+         if(e.keyCode ===13){
             
-            e.preventDefault();
-            buttonRef.current.click();
-        }
-    };
+             e.preventDefault();
+             buttonRef.current.click();
+         }
+     };
 
     const characterLimit=200;
 
@@ -33,7 +33,7 @@ const AddNote= ( {handleAddNote }) =>{
         if(noteText.trim().length> 0){
             handleAddNote(noteText);
             setNoteText('');
-            setbuttonClicked(buttonClicked+1);
+            // setbuttonClicked(buttonClicked+1);
 
         }
 
@@ -49,7 +49,7 @@ const AddNote= ( {handleAddNote }) =>{
         placeholder='Type to add a note...'
         value={noteText}
         onChange={handlechange}
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleKeyDown} 
         >
 
         </textarea>
