@@ -74,5 +74,7 @@ phases:
       - aws eks --region us-east-1 update-kubeconfig --name codepipeline-eks-cluster
       - kubectl apply -f deployment.yaml 
       - kubectl apply -f service.yaml
+      - kubectl rollout restart deployment node-app
+
 
 
