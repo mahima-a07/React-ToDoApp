@@ -34,7 +34,7 @@ phases:
       - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
       - aws configure set default.region $AWS_DEFAULT_REGION
-      
+
       # Get ECR login credentials
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region us-east-1)
@@ -75,7 +75,13 @@ phases:
       - kubectl apply -f deployment.yaml 
       - kubectl apply -f service.yaml
 
-artifacts:
-  files:
-    - '**/*'
-  discard-paths: yes
+      # Wait for the LoadBalancer IP or DNS to be provisioned
+      - echo "Waiting for LoadBalancer to be provisioned..."
+      - |
+        while [ -z "node-app-service" ]; do
+          echo "Fetching LoadBalancer URL..."
+          SERVICE_URL=$(kubectl get svc node-app-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+          [ -z "$SERVICE_URL" ] && sleep 10
+        done
+      
+      - echo "Service is available at: node-app-service"
