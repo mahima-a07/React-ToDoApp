@@ -5,26 +5,19 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-
-      # Verify curl and tar installation
-      - echo Checking curl version...
-      - curl --version
-      - echo Checking tar version...
-      - tar --version
-
       # Install Docker
       - echo Installing Docker...
       - curl -fsSL https://get.docker.com | sh
 
-
       # Install AWS CLI
       - echo Installing AWS CLI...
       - pip install awscli
-      #!/bin/bash
 
-      # Update and install dependencies
-      - sudo apt-get update
-      - sudo apt-get install -y apt-transport-https ca-certificates curl
+      # Install eksctl using the official installation script
+      - echo Installing eksctl...
+      - curl -s https://raw.githubusercontent.com/eksctl/eksctl/main/scripts/install.sh | sudo bash
+      - echo Verifying eksctl installation...
+      - eksctl version
 
       # Install kubectl
       - echo Installing kubectl...
@@ -40,6 +33,10 @@ phases:
       # Get ECR login credentials
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region us-east-1)
+
+      # Verify Docker login was successful
+      - echo Checking Docker login status...
+      - docker info
 
       # Set up kubectl to interact with EKS
       - echo Configuring kubectl...
@@ -57,6 +54,9 @@ phases:
       # Build Docker image
       - echo Building Docker image...
       - docker build -t react1-image .
+
+      # Verify Docker image exists
+      - docker images
       
       # Tag and push Docker image to ECR
       - echo Tagging Docker image...
