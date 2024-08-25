@@ -66,8 +66,8 @@ phases:
     commands:
       # Deploy to EKS
       - aws eks --region us-east-1 update-kubeconfig --name codepipeline-eks-cluster
-      - kubectl apply -f deployment.yaml || { echo "Deployment failed"; kubectl describe pod --all; exit 1; }
-      - kubectl apply -f service.yaml || { echo "Service deployment failed"; kubectl describe svc --all; exit 1; }
+      - kubectl apply -f deployment.yaml 
+      - kubectl apply -f service.yaml
 
 artifacts:
   files:
