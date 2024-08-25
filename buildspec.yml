@@ -1,0 +1,68 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      # Install Docker
+      - echo Installing Docker...
+      - curl -fsSL https://get.docker.com | sh
+      - sudo usermod -aG docker $USER
+      - sudo service docker start
+
+      # Install AWS CLI
+      - echo Installing AWS CLI...
+      - pip install awscli
+
+      # Install eksctl
+      - echo Installing eksctl...
+      - curl --silent --location "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
+      - sudo mv /tmp/eksctl /usr/local/bin
+
+      # Install kubectl
+      - echo Installing kubectl...
+      - curl -LO "https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl"
+      - chmod +x ./kubectl
+      - sudo mv ./kubectl /usr/local/bin/kubectl
+
+  pre_build:
+    commands:
+      # Get ECR login credentials
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+
+      # Set up kubectl to interact with EKS
+      - echo Configuring kubectl...
+      - aws eks --region us-east-1 update-kubeconfig --name codepipeline-eks-cluster
+
+
+
+  build:
+    commands:
+      # Build the React application
+      - echo Building React application...
+      - npm install
+      - npm run build
+      
+      # Build Docker image
+      - echo Building Docker image...
+      - docker build -t react1-image .
+      
+      # Tag and push Docker image to ECR
+      - echo Tagging Docker image...
+      - docker tag react1-image 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo02:latest
+      - echo Pushing Docker image to ECR...
+      - docker push 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo02:latest
+      
+  post_build:
+    commands:
+      # Deploy to EKS
+      - echo Deploying to EKS...
+      - kubectl apply -f deployment.yaml
+      - kubectl apply -f service.yaml
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
