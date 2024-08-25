@@ -25,13 +25,10 @@ phases:
       # Update and install dependencies
       - sudo apt-get update
       - sudo apt-get install -y apt-transport-https ca-certificates curl
-      
-      # Install eksctl
+
+      # Install eksctl using the official installation script
       - echo Installing eksctl...
-      - curl -LO "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz"
-      - tar -xzf eksctl_Linux_amd64.tar.gz
-      - sudo mv eksctl /usr/local/bin/eksctl
-      - sudo chmod +x /usr/local/bin/eksctl
+      - curl -s https://raw.githubusercontent.com/eksctl/eksctl/main/scripts/install.sh | sudo bash
       - echo Verifying eksctl installation...
       - eksctl version
 
