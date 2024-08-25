@@ -75,12 +75,4 @@ phases:
       - kubectl apply -f deployment.yaml 
       - kubectl apply -f service.yaml
 
-      # Wait for the LoadBalancer IP or DNS to be provisioned
-      - echo "Waiting for LoadBalancer to be provisioned..."
-      - |
-        while [ -z "node-app-service" ]; do
-          echo "Fetching LoadBalancer URL..."
-          SERVICE_URL=$(kubectl get svc node-app-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-          [ -z "$SERVICE_URL" ] && sleep 10
-        done
-        - echo "Service is available at: node-app-service"
+
