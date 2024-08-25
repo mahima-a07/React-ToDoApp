@@ -27,18 +27,17 @@ phases:
       - sudo apt-get install -y apt-transport-https ca-certificates curl
 
       # Install kubectl
-      - curl -LO "https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl"
-      - sudo chmod +x ./kubectl
-      - sudo mv ./kubectl /usr/local/bin/kubectl
+      - curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.2/2024-07-12/bin/linux/amd64/kubectl
       # Verify kubectl installation
       - kubectl version --client
 
       # Install eksctl
       - echo Installing eksctl...
-      - curl --silent --location "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz" --retry 3 --retry-delay 10 -o /tmp/eksctl_Linux_amd64.tar.gz
+      - curl --silent --location "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz" -o /tmp/eksctl_Linux_amd64.tar.gz
       - tar -xzf /tmp/eksctl_Linux_amd64.tar.gz -C /tmp
-      - sudo mv /tmp/eksctl /usr/local/bin
-      # Verify eksctl installation
+      - sudo mv /tmp/eksctl /usr/local/bin/eksctl
+      - sudo chmod +x /usr/local/bin/eksctl
+      - echo Verifying eksctl installation...
       - eksctl version
 
 
