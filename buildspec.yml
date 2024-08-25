@@ -13,9 +13,12 @@ phases:
       - echo Installing AWS CLI...
       - pip install awscli
 
-      # Install eksctl using the official installation script
+      # Install eksctl manually
       - echo Installing eksctl...
-      - curl -s https://raw.githubusercontent.com/eksctl/eksctl/main/scripts/install.sh | sudo bash
+      - curl -sLo /tmp/eksctl_Linux_amd64.tar.gz https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz
+      - tar -xzf /tmp/eksctl_Linux_amd64.tar.gz -C /tmp
+      - sudo mv /tmp/eksctl /usr/local/bin/eksctl
+      - sudo chmod +x /usr/local/bin/eksctl
       - echo Verifying eksctl installation...
       - eksctl version
 
