@@ -20,20 +20,25 @@ phases:
       # Install AWS CLI
       - echo Installing AWS CLI...
       - pip install awscli
+      #!/bin/bash
 
-      # Install eksctl
-      - echo Installing eksctl...
-      - curl --silent --location "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz" -o /tmp/eksctl_Linux_amd64.tar.gz
-      - tar xz -C /tmp -f /tmp/eksctl_Linux_amd64.tar.gz
-      - sudo mv /tmp/eksctl /usr/local/bin/eksctl
-      - eksctl version
+      # Update and install dependencies
+      sudo apt-get update
+      sudo apt-get install -y apt-transport-https ca-certificates curl
 
       # Install kubectl
-      - echo Installing kubectl...
-      - curl -LO "https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl"
-      - chmod +x ./kubectl
-      - sudo mv ./kubectl /usr/local/bin/kubectl
-      - kubectl version --client
+      curl -LO "https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl"
+      sudo chmod +x ./kubectl
+      sudo mv ./kubectl /usr/local/bin/kubectl
+      # Verify kubectl installation
+      kubectl version --client
+
+      # Install eksctl
+      curl --silent --location "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz" -o /tmp/eksctl_Linux_amd64.tar.gz
+      tar xz -C /tmp -f /tmp/eksctl_Linux_amd64.tar.gz
+      sudo mv /tmp/eksctl /usr/local/bin/eksctl
+      # Verify eksctl installation
+      eksctl version
 
 
   pre_build:
