@@ -16,8 +16,10 @@ phases:
 
       # Install eksctl
       - echo Installing eksctl...
-      - curl --silent --location "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
-      - sudo mv /tmp/eksctl /usr/local/bin
+      - wget https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz -O /tmp/eksctl_Linux_amd64.tar.gz
+      - tar xz -C /tmp -f /tmp/eksctl_Linux_amd64.tar.gz
+      - sudo mv /tmp/eksctl /usr/local/bin/
+
 
       # Install kubectl
       - echo Installing kubectl...
