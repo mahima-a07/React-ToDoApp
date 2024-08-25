@@ -5,6 +5,13 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
+
+      # Verify curl and tar installation
+      - echo Checking curl version...
+      - curl --version
+      - echo Checking tar version...
+      - tar --version
+
       # Install Docker
       - echo Installing Docker...
       - curl -fsSL https://get.docker.com | sh
@@ -16,14 +23,18 @@ phases:
 
       # Install eksctl
       - echo Installing eksctl...
-      - curl --silent --location "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
-      - sudo mv /tmp/eksctl /usr/local/bin
+      - curl --silent --location "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz" -o /tmp/eksctl_Linux_amd64.tar.gz
+      - tar xz -C /tmp -f /tmp/eksctl_Linux_amd64.tar.gz
+      - sudo mv /tmp/eksctl /usr/local/bin/eksctl
+      - eksctl version
 
       # Install kubectl
       - echo Installing kubectl...
       - curl -LO "https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl"
       - chmod +x ./kubectl
       - sudo mv ./kubectl /usr/local/bin/kubectl
+      - kubectl version --client
+
 
   pre_build:
     commands:
