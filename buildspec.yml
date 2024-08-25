@@ -83,5 +83,4 @@ phases:
           SERVICE_URL=$(kubectl get svc node-app-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
           [ -z "$SERVICE_URL" ] && sleep 10
         done
-      
-      - echo "Service is available at: node-app-service"
+        - echo "Service is available at: node-app-service"
