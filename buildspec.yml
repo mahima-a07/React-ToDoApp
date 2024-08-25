@@ -25,17 +25,21 @@ phases:
       # Update and install dependencies
       - sudo apt-get update
       - sudo apt-get install -y apt-transport-https ca-certificates curl
-
-      # Install eksctl using a script
+      
+      # Install eksctl
       - echo Installing eksctl...
-      - curl -s https://raw.githubusercontent.com/eksctl/eksctl/main/scripts/install.sh | sudo bash
+      - curl -LO "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64.tar.gz"
+      - tar -xzf eksctl_Linux_amd64.tar.gz
+      - sudo mv eksctl /usr/local/bin/eksctl
+      - sudo chmod +x /usr/local/bin/eksctl
       - echo Verifying eksctl installation...
       - eksctl version
 
-      # Install kubectl using a script
+      # Install kubectl
       - echo Installing kubectl...
-      - curl -s https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
-      - chmod +x /usr/local/bin/kubectl
+      - curl -LO "https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl"
+      - sudo mv kubectl /usr/local/bin/
+      - sudo chmod +x /usr/local/bin/kubectl
       - echo Verifying kubectl installation...
       - kubectl version --client
 
