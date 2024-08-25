@@ -40,7 +40,6 @@ phases:
       # Set up kubectl to interact with EKS
       - echo Configuring kubectl...
       - aws eks --region us-east-1 update-kubeconfig --name codepipeline-eks-cluster
-      - kubectl cluster-info
 
 
   build:
