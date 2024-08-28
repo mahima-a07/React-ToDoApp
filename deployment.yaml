@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo02:latest
+        image: 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
