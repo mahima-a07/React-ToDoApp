@@ -6,11 +6,11 @@ phases:
       nodejs: 18
     commands:
       # Install Docker
-      - echo Installing Docker...
+      - echo Installing Docker....
       - curl -fsSL https://get.docker.com | sh
 
       # Install AWS CLI
-      - echo Installing AWS CLI...
+      - echo Installing AWS CLI....
       - pip install awscli
 
       # Install eksctl
@@ -30,28 +30,28 @@ phases:
   pre_build:
     commands:
       # AWS configure
-      - echo Configuring AWS CLI...
+      - echo Configuring AWS CLI....
       - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
       - aws configure set default.region $AWS_DEFAULT_REGION
 
       # Get ECR login credentials
-      - echo Logging in to Amazon ECR...
+      - echo Logging in to Amazon ECR....
       - $(aws ecr get-login --no-include-email --region us-east-1)
 
       # Verify Docker login was successful
-      - echo Checking Docker login status...
+      - echo Checking Docker login status....
       - docker info
 
       # Set up kubectl to interact with EKS
-      - echo Configuring kubectl...
+      - echo Configuring kubectl....
       - aws eks --region us-east-1 update-kubeconfig --name eks-codepipelin-cluster
 
 
   build:
     commands:
       # Build the React application
-      - echo Building React application...
+      - echo Building React application....
       - npm install
       - npm run build
       
@@ -65,7 +65,7 @@ phases:
       # Tag and push Docker image to ECR
       - echo Tagging Docker image...
       - docker tag react1-image 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo:latest
-      - echo Pushing Docker image to ECR....
+      - echo Pushing Docker image to ECR...
       - docker push 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo:latest
       
   post_build:
