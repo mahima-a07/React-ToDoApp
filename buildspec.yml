@@ -64,9 +64,9 @@ phases:
       
       # Tag and push Docker image to ECR
       - echo Tagging Docker image...
-      - docker tag react1-image 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo02:latest
+      - docker tag react1-image 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo:latest
       - echo Pushing Docker image to ECR....
-      - docker push 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo02:latest
+      - docker push 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo:latest
       
   post_build:
     commands:
