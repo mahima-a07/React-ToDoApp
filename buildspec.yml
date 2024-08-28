@@ -71,7 +71,7 @@ phases:
   post_build:
     commands:
       # Deploy to EKS
-      - aws eks --region us-east-1 update-kubeconfig --name codepipeline-eks-cluster
+      - aws eks --region us-east-1 update-kubeconfig --name eks-codepipelin-cluster
       - kubectl apply -f deployment.yaml 
       - kubectl apply -f service.yaml
       - kubectl rollout restart deployment node-app
