@@ -45,7 +45,7 @@ phases:
 
       # Set up kubectl to interact with EKS
       - echo Configuring kubectl....
-      - aws eks --region us-east-1 update-kubeconfig --name eks-codepipelin-cluster
+      - aws eks --region us-east-1 update-kubeconfig --name eks-codepipeline-cluster
 
 
   build:
@@ -64,14 +64,14 @@ phases:
       
       # Tag and push Docker image to ECR
       - echo Tagging Docker image...
-      - docker tag react1-image 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo:latest
+      - docker tag react1-image 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-repo:latest
       - echo Pushing Docker image to ECR...
-      - docker push 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-ecrrepo:latest
+      - docker push 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-repo:latest
       
   post_build:
     commands:
       # Deploy to EKS
-      - aws eks --region us-east-1 update-kubeconfig --name eks-codepipelin-cluster
+      - aws eks --region us-east-1 update-kubeconfig --name eks-codepipeline-cluster
       - kubectl apply -f deployment.yaml 
       - kubectl apply -f service.yaml
       - kubectl rollout restart deployment node-app
