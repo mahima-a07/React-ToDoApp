@@ -3,78 +3,28 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 16 # Specify the Node.js version
     commands:
-      # Install Docker
-      - echo Installing Docker....
-      - curl -fsSL https://get.docker.com | sh
-
-      # Install AWS CLI
-      - echo Installing AWS CLI....
-      - pip install awscli
-
-      # Install eksctl
-      - curl -LO "https://github.com/eksctl/eksctl/releases/download/v0.146.0/eksctl_Linux_amd64"
-      - chmod +x eksctl_Linux_amd64
-      - sudo mv eksctl_Linux_amd64 /usr/local/bin/eksctl
-
-      # Install kubectl
-      - echo Installing kubectl...
-      - curl -LO "https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl"
-      - sudo mv kubectl /usr/local/bin/
-      - sudo chmod +x /usr/local/bin/kubectl
-      - echo Verifying kubectl installation...
-      - kubectl version --client
-
-
-  pre_build:
-    commands:
-      # AWS configure
-      - echo Configuring AWS CLI....
-      - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-      - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      - aws configure set default.region $AWS_DEFAULT_REGION
-
-      # Get ECR login credentials
-      - echo Logging in to Amazon ECR....
-      - $(aws ecr get-login --no-include-email --region us-east-1)
-
-      # Verify Docker login was successful
-      - echo Checking Docker login status....
-      - docker info
-
-      # Set up kubectl to interact with EKS
-      - echo Configuring kubectl....
-      - aws eks --region us-east-1 update-kubeconfig --name eks-codepipeline-cluster
-
-
+      - echo Installing dependencies...
+      - npm install
   build:
     commands:
-      # Build the React application
-      - echo Building React application....
-      - npm install
+      - echo Building the React application...
       - npm run build
-      
-      # Build Docker image
-      - echo Building Docker image...
-      - docker build -t react1-image .
-
-      # Verify Docker image exists
-      - docker images
-      
-      # Tag and push Docker image to ECR
-      - echo Tagging Docker image...
-      - docker tag react1-image 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-repo:latest
-      - echo Pushing Docker image to ECR...
-      - docker push 316323739720.dkr.ecr.us-east-1.amazonaws.com/reactapp-repo:latest
-      
   post_build:
     commands:
-      # Deploy to EKS
-      - aws eks --region us-east-1 update-kubeconfig --name eks-codepipeline-cluster
-      - kubectl apply -f deployment.yaml 
-      - kubectl apply -f service.yaml
-      - kubectl rollout restart deployment node-app
+      - echo Build completed on `date`
+      - echo Preparing artifacts...
+
+artifacts:
+  files:
+    - '**/*'   # Include all files in the build directory
+  base-directory: 'build'  # The directory where the React app is built
+  discard-paths: yes       # Discard the file paths in the output
+
+cache:
+  paths:
+    - 'node_modules/**/*'  # Cache `node_modules` to speed up subsequent builds
 
 
 
