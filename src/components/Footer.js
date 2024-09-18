@@ -3,7 +3,7 @@ import React from 'react';
 const Footer=({ darkMode}) => {
     return(
         <div className={`footer ${darkMode ? 'footer-dark':""}`} id='footer'>
-        <p>Developed by <a href='https://www.github.com/batrick-swaistan' target="_blank">BATRi</a></p>
+        <p>Developed by <a href='https://www.github.com/batrick-swaistan' target="_blank">Batri</a></p>
         </div>
     );
 
