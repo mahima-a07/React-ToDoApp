@@ -1,61 +1,108 @@
-<!-- Please update value in the {}  -->
+# Deployment of a React Application to an AWS EKS Cluster Using Jenkins CI/CD and Docker
 
-<h1 align="center">Notes App - React Js</h1>
+## Introduction
 
-<div align="center">
-  <h3>
-    <a href="https://notes-app-two-zeta.vercel.app/" target="_blank">
-      Demo
-    </a>
-  </h3>
-</div>
-
-<!-- TABLE OF CONTENTS -->
+This project demonstrates the deployment of a React application to an Amazon Elastic Kubernetes Service (EKS) cluster using Jenkins for Continuous Integration and Continuous Deployment (CI/CD). The objective is to automate the build and deployment processes, ensuring a streamlined workflow for delivering updates and new features.
 
 ## Table of Contents
 
-- [Overview](#overview)
-  - [Built With](#built-with)
-- [Features](#Learnings)
-- [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Setup Instructions](#setup-instructions)
+- [Build Commands](#build-commands)
+- [Deployment Process](#deployment-process)
+- [Screenshots](#screenshots)
+- [Conclusion](#conclusion)
 
-<!-- OVERVIEW -->
+## Prerequisites
 
-## Overview
+Before you begin, ensure you have the following installed:
 
-![screenshot](https://github.com/batrick-swaistan/Notes_App/blob/main/public/notes_app.png)
+- [AWS Account](https://aws.amazon.com/)
+- [AWS CLI](https://aws.amazon.com/cli/)
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [Docker](https://www.docker.com/get-started)
+- [Jenkins](https://www.jenkins.io/download/)
 
-- You can see my Notes web app by clicking on the Demo. I've hosted my project on vercel.
-- It's a guided project for deeper understanding of react hooks.
+## Project Structure
 
-### Built With
+The project is organized as follows:
 
-<!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
+/my-react-app ├── Dockerfile ├── jenkins │ ├── Jenkinsfile │ └── config.xml ├── src │ ├── App.js │ └── ... ├── public │ ├── index.html │ └── ... ├── package.json └── ...
 
-- React Js
+bash
+Copy code
 
-## Learnings
+## Setup Instructions
 
-<!-- List the features of your application or follow the template. Don't share the figma file here :) -->
+1. **Clone the Repository**
+   ```bash
+   git clone [YOUR_REPOSITORY_URL]
+   cd my-react-app
+Create a Docker Image Navigate to the project directory and build the Docker image:
 
-- Have developed this project to showcase my practical skills in React Js. This project helped to learn one of the react hooks concept called useState in more deeper. Here in this project I have created Notes which is fuly resposive and something cool about this web application is I have created  a dark mode for it. 
+bash
+Copy code
+docker build -t my-react-app .
+Set Up AWS EKS Cluster Follow the AWS documentation to create an EKS cluster.
 
-- Thanks to Chris,chatGPT and w3schools for helping through out this project.
+Configure Jenkins
 
-- Since I am new to react if anyone finds any mistakes or can make this project better please fork this and teach me about some more cool stuffs in react js.
+Install the necessary plugins for Docker and Kubernetes in Jenkins.
+Set up the Jenkins pipeline using the Jenkinsfile provided in the jenkins directory.
+Build Commands
+The Jenkins pipeline is configured to automatically build and push the Docker image to the Amazon Elastic Container Registry (ECR) on each commit. The main build commands include:
+
+groovy
+Copy code
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    sh 'docker build -t my-react-app .'
+                }
+            }
+        }
+        stage('Push to ECR') {
+            steps {
+                script {
+                    sh 'docker tag my-react-app:latest [YOUR_ECR_URI]:latest'
+                    sh 'docker push [YOUR_ECR_URI]:latest'
+                }
+            }
+        }
+        stage('Deploy to EKS') {
+            steps {
+                script {
+                    sh 'kubectl apply -f k8s/deployment.yaml'
+                }
+            }
+        }
+    }
+}
+Deployment Process
+Deploy the Application
+
+Ensure that your Kubernetes context is set to your EKS cluster.
+Use the following command to deploy your application:
+bash
+Copy code
+kubectl apply -f k8s/deployment.yaml
+Access the Application
+
+Once deployed, you can access the React application using the external URL of your LoadBalancer service.
+Screenshots
+
+EKS Cluster Overview in AWS Console
 
 
-## Acknowledgements
-
-<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For exmpale -->
-
-- W3schools (https://www.w3schools.com)
-- Chris Blakely (https://youtu.be/8KB3DHI-QbM?si=LF_owna7mXN1y6PN)
-
-## Contact
+Jenkins Pipeline for CI/CD
 
 
-- GitHub [@batrick-swaistan](https://github.com/batrick-swaistan)
-- Gmail [@Batrick Swaistan](mailto:batrickswaistan@gmail.com)
+Running React Application
+
+Conclusion
+This project highlights the integration of Jenkins, Docker, and AWS EKS for deploying a React application. By automating the build and deployment processes, we can ensure faster and more reliable delivery of software updates. Feel free to explore and customize the setup according to your needs.
 
