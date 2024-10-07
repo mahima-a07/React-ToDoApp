@@ -90,7 +90,7 @@ pipeline {
             steps {
                 script {
                     sh 'kubectl apply -f deployment.yaml'
-                    sh 'kubectl apply -f k8s/service.yaml'
+                    sh 'kubectl apply -f service.yaml'
                 }
             }
         }
@@ -113,12 +113,13 @@ pipeline {
 
 ## Screenshots
 
+*EKS Cluster Overview in AWS Console*
+
 ![image](https://github.com/user-attachments/assets/a7b56ebc-08aa-40d2-8edb-8b7e222b1b65)
 
 ![image](https://github.com/user-attachments/assets/4ace8286-a036-4d75-b491-286496fece34)
 
-
-*EKS Cluster Overview in AWS Console*
+*Jenkins Pipeline for CI/CD*
 
 ![image](https://github.com/user-attachments/assets/afa6cca0-5cb7-4f74-8482-12687985638d)
 
@@ -126,11 +127,10 @@ pipeline {
 
 ![image](https://github.com/user-attachments/assets/2ac79421-7f23-463b-a4f5-5ffab7c0d7e6)
 
-*Jenkins Pipeline for CI/CD*
+*Running React Application*
 
 ![image](https://github.com/user-attachments/assets/4463fbc8-9b7d-4fad-a99d-2bd7ecc5779e)
 
-*Running React Application*
 
 ## Conclusion
 
