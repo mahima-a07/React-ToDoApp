@@ -31,9 +31,6 @@ The project is organized as follows:
 ```
 /my-react-app
 ├── Dockerfile
-├── jenkins
-│   ├── Jenkinsfile
-│   └── config.xml
 ├── src
 │   ├── App.js
 │   └── ...
@@ -41,7 +38,8 @@ The project is organized as follows:
 │   ├── index.html
 │   └── ...
 ├── package.json
-└── ...
+└── deployment.yml
+└── service.yml
 ```
 
 ## Setup Instructions
@@ -91,7 +89,8 @@ pipeline {
         stage('Deploy to EKS') {
             steps {
                 script {
-                    sh 'kubectl apply -f k8s/deployment.yaml'
+                    sh 'kubectl apply -f deployment.yaml'
+                    sh 'kubectl apply -f k8s/service.yaml'
                 }
             }
         }
@@ -105,7 +104,8 @@ pipeline {
    - Ensure that your Kubernetes context is set to your EKS cluster.
    - Use the following command to deploy your application:
    ```bash
-   kubectl apply -f k8s/deployment.yaml
+   kubectl apply -f deployment.yaml
+   kubectl apply -f service.yaml
    ```
 
 2. **Access the Application**
@@ -113,15 +113,22 @@ pipeline {
 
 ## Screenshots
 
-![EKS Cluster Overview](screenshots/eks-cluster-overview.png)
+![image](https://github.com/user-attachments/assets/a7b56ebc-08aa-40d2-8edb-8b7e222b1b65)
+
+![image](https://github.com/user-attachments/assets/4ace8286-a036-4d75-b491-286496fece34)
+
 
 *EKS Cluster Overview in AWS Console*
 
-![Jenkins Pipeline](screenshots/jenkins-pipeline.png)
+![image](https://github.com/user-attachments/assets/afa6cca0-5cb7-4f74-8482-12687985638d)
+
+![image](https://github.com/user-attachments/assets/cdaf9c72-2a8c-43af-b0ef-18a41cbb8a5b)
+
+![image](https://github.com/user-attachments/assets/2ac79421-7f23-463b-a4f5-5ffab7c0d7e6)
 
 *Jenkins Pipeline for CI/CD*
 
-![React Application](screenshots/react-app.png)
+![image](https://github.com/user-attachments/assets/4463fbc8-9b7d-4fad-a99d-2bd7ecc5779e)
 
 *Running React Application*
 
