@@ -28,10 +28,21 @@ Before you begin, ensure you have the following installed:
 
 The project is organized as follows:
 
-/my-react-app ├── Dockerfile ├── jenkins │ ├── Jenkinsfile │ └── config.xml ├── src │ ├── App.js │ └── ... ├── public │ ├── index.html │ └── ... ├── package.json └── ...
-
-bash
-Copy code
+```
+/my-react-app
+├── Dockerfile
+├── jenkins
+│   ├── Jenkinsfile
+│   └── config.xml
+├── src
+│   ├── App.js
+│   └── ...
+├── public
+│   ├── index.html
+│   └── ...
+├── package.json
+└── ...
+```
 
 ## Setup Instructions
 
@@ -39,22 +50,26 @@ Copy code
    ```bash
    git clone [YOUR_REPOSITORY_URL]
    cd my-react-app
-Create a Docker Image Navigate to the project directory and build the Docker image:
+   ```
 
-bash
-Copy code
-docker build -t my-react-app .
-Set Up AWS EKS Cluster Follow the AWS documentation to create an EKS cluster.
+2. **Create a Docker Image**
+   Navigate to the project directory and build the Docker image:
+   ```bash
+   docker build -t my-react-app .
+   ```
 
-Configure Jenkins
+3. **Set Up AWS EKS Cluster**
+   Follow the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html) to create an EKS cluster.
 
-Install the necessary plugins for Docker and Kubernetes in Jenkins.
-Set up the Jenkins pipeline using the Jenkinsfile provided in the jenkins directory.
-Build Commands
+4. **Configure Jenkins**
+   - Install the necessary plugins for Docker and Kubernetes in Jenkins.
+   - Set up the Jenkins pipeline using the `Jenkinsfile` provided in the `jenkins` directory.
+
+## Build Commands
+
 The Jenkins pipeline is configured to automatically build and push the Docker image to the Amazon Elastic Container Registry (ECR) on each commit. The main build commands include:
 
-groovy
-Copy code
+```groovy
 pipeline {
     agent any
     stages {
@@ -82,27 +97,35 @@ pipeline {
         }
     }
 }
-Deployment Process
-Deploy the Application
+```
 
-Ensure that your Kubernetes context is set to your EKS cluster.
-Use the following command to deploy your application:
-bash
-Copy code
-kubectl apply -f k8s/deployment.yaml
-Access the Application
+## Deployment Process
 
-Once deployed, you can access the React application using the external URL of your LoadBalancer service.
-Screenshots
+1. **Deploy the Application**
+   - Ensure that your Kubernetes context is set to your EKS cluster.
+   - Use the following command to deploy your application:
+   ```bash
+   kubectl apply -f k8s/deployment.yaml
+   ```
 
-EKS Cluster Overview in AWS Console
+2. **Access the Application**
+   - Once deployed, you can access the React application using the external URL of your LoadBalancer service.
 
+## Screenshots
 
-Jenkins Pipeline for CI/CD
+![EKS Cluster Overview](screenshots/eks-cluster-overview.png)
 
+*EKS Cluster Overview in AWS Console*
 
-Running React Application
+![Jenkins Pipeline](screenshots/jenkins-pipeline.png)
 
-Conclusion
+*Jenkins Pipeline for CI/CD*
+
+![React Application](screenshots/react-app.png)
+
+*Running React Application*
+
+## Conclusion
+
 This project highlights the integration of Jenkins, Docker, and AWS EKS for deploying a React application. By automating the build and deployment processes, we can ensure faster and more reliable delivery of software updates. Feel free to explore and customize the setup according to your needs.
 
